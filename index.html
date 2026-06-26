@@ -871,4 +871,417 @@ footer{background:#08152e;padding:64px 5% 28px}
           What are the school fees, and can my child get free admission?
           <div class="fq-ico">+</div>
         </div>
-        <div class="fa">BCF operates on a highly subsidised fee model to ensure
+        <div class="fa">BCF operates on a highly subsidised fee model to ensureeducation remains accessible to all families. Monthly tuition fees range from PKR 300 to PKR 800 depending on class and program. Families living below the poverty line may qualify for completely free admission under our Scholarship Program. We also provide free textbooks, uniforms, and stationery to students in financial need. No child is ever turned away from BCF due to inability to pay. Contact our admissions office or visit in person to apply for a fee waiver.</div>
+      </div>
+      <div class="fi fade-up d2">
+        <div class="fq" onclick="toggleFaq(this)">
+          What are the school timings and days of operation?
+          <div class="fq-ico">+</div>
+        </div>
+        <div class="fa">BCF school operates Monday to Saturday. Primary school hours are 8:00 AM – 12:00 PM and secondary school runs 8:00 AM – 1:30 PM. Our Vocational Training Center runs two shifts: morning (9:00 AM – 12:00 PM) and afternoon (2:00 PM – 5:00 PM) to accommodate students with other commitments. The school is closed on Sundays and all national public holidays. Special Saturday sessions are occasionally arranged for exams or events — parents are notified two weeks in advance.</div>
+      </div>
+      <div class="fi fade-up d3">
+        <div class="fq" onclick="toggleFaq(this)">
+          How can I donate to BCF, and is my donation tax-deductible?
+          <div class="fq-ico">+</div>
+        </div>
+        <div class="fa">You can donate through our online donation form on this website, by bank transfer, or by visiting our office. We accept one-time and recurring monthly donations. BCF is registered as a non-profit and donations may qualify for tax exemption under Section 2(36) of the Income Tax Ordinance 2001 — we issue official tax receipts for every donation. For corporate CSR partnerships or Zakat-eligible contributions, contact us at donate@bcfpakistan.org. 100% of donations go directly to student education.</div>
+      </div>
+      <div class="fi fade-up d4">
+        <div class="fq" onclick="toggleFaq(this)">
+          Where is BCF located and how do I reach the school?
+          <div class="fq-ico">+</div>
+        </div>
+        <div class="fa">BCF's main campus is at Plot 45-B, Gulshan-e-Ravi, Lahore, Punjab, Pakistan. The school is easily accessible by public transport — several bus routes stop within a 5-minute walk, and rickshaws are readily available. Free pick-and-drop service is available for students within a 3km radius. Call our helpline at 0300-BCFCARE or email info@bcfpakistan.org to get directions or schedule a campus tour with our admissions team. We warmly welcome prospective families, donors, and volunteers.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ADMISSIONS ══════ -->
+<section id="admissions">
+  <div class="mw">
+    <div class="fade-up">
+      <div class="sec-eye">Join Our Family</div>
+      <h2 class="sec-h">Admissions Application</h2>
+      <div class="sec-bar"></div>
+      <p class="sec-p" style="margin-top:14px">Apply below and our admissions team will contact you within 2 working days to schedule an interview and campus tour.</p>
+    </div>
+    <div class="adm-layout">
+      <div class="fade-up d1">
+        <div class="adm-info">
+          <h3>How Admissions Work</h3>
+          <p>BCF's admissions process is simple, transparent, and designed to be accessible to every family — regardless of their financial background.</p>
+          <div class="adm-steps">
+            <div class="step">
+              <div class="step-n">1</div>
+              <div>
+                <div class="step-t">Submit Application</div>
+                <div class="step-s">Fill in the online form with your child's basic details. Takes less than 5 minutes.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-n">2</div>
+              <div>
+                <div class="step-t">Team Contacts You</div>
+                <div class="step-s">Our admissions team reaches out within 2 working days to schedule your visit.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-n">3</div>
+              <div>
+                <div class="step-t">Campus Tour & Interview</div>
+                <div class="step-s">Visit BCF, meet our team, and attend a short friendly assessment with your child.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-n">4</div>
+              <div>
+                <div class="step-t">Enrolment Confirmed</div>
+                <div class="step-s">Receive your confirmation letter and fee structure. Classes begin the next week.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up d2">
+        <div class="adm-form">
+          <div id="admFormBody">
+            <div class="form-h">Student Application Form</div>
+            <div class="row2">
+              <div class="fg" id="fg-sname">
+                <label>Student Full Name *</label>
+                <input type="text" id="a-sname" placeholder="e.g. Ahmed Ali"/>
+                <div class="err-msg">Please enter the student's name</div>
+              </div>
+              <div class="fg" id="fg-fname">
+                <label>Father's Name *</label>
+                <input type="text" id="a-fname" placeholder="e.g. Mohammad Ali"/>
+                <div class="err-msg">Please enter the father's name</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="fg" id="fg-age">
+                <label>Student's Age *</label>
+                <input type="number" id="a-age" placeholder="e.g. 10" min="4" max="25"/>
+                <div class="err-msg">Please enter a valid age</div>
+              </div>
+              <div class="fg" id="fg-class">
+                <label>Applying for Class *</label>
+                <select id="a-class">
+                  <option value="">— Select Class —</option>
+                  <option>Class 1</option><option>Class 2</option><option>Class 3</option>
+                  <option>Class 4</option><option>Class 5</option><option>Class 6</option>
+                  <option>Class 7</option><option>Class 8</option><option>Class 9</option>
+                  <option>Class 10</option><option>Vocational Training</option>
+                </select>
+                <div class="err-msg">Please select a class</div>
+              </div>
+            </div>
+            <div class="fg" id="fg-addr">
+              <label>Home Address *</label>
+              <input type="text" id="a-addr" placeholder="Full address including area and city"/>
+              <div class="err-msg">Please enter your address</div>
+            </div>
+            <div class="row2">
+              <div class="fg" id="fg-phone">
+                <label>Contact Phone *</label>
+                <input type="tel" id="a-phone" placeholder="0300-1234567"/>
+                <div class="err-msg">Please enter a phone number</div>
+              </div>
+              <div class="fg">
+                <label>Previous School (if any)</label>
+                <input type="text" id="a-prev" placeholder="Name of previous school"/>
+              </div>
+            </div>
+            <div class="fg" id="fg-why">
+              <label>Why do you want to join BCF? *</label>
+              <textarea id="a-why" placeholder="Tell us about the student and why BCF is the right fit..."></textarea>
+              <div class="err-msg">Please tell us why you want to join</div>
+            </div>
+            <button class="btn-navy" onclick="submitAdm()">Submit Application →</button>
+          </div>
+          <div class="success-box" id="admSuccess">
+            <div class="ico">🎉</div>
+            <h3>Application Submitted!</h3>
+            <p>Thank you for applying to BCF. Our admissions team will review your form and reach out within <strong>2 working days</strong> to schedule your interview and campus visit. We look forward to welcoming your child into the BCF family!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ DONATE ══════ -->
+<section id="donate">
+  <div class="mw">
+    <div class="don-layout">
+      <div class="fade-up">
+        <div class="don-info">
+          <div class="sec-eye">Change a Child's Life</div>
+          <h2 class="sec-h">Your Donation,<br/>Their Education</h2>
+          <div class="sec-bar" style="background:var(--gold)"></div>
+          <p class="sec-p" style="margin-top:18px;color:rgba(255,255,255,.7)">Every rupee you give goes directly to providing quality education to children who need it most. No overhead. No delay. Just impact.</p>
+          <div class="don-impact">
+            <div class="di"><div class="di-amt">PKR 1,000</div><div class="di-desc">Provides complete stationery kit and notebooks for one child for a full month</div></div>
+            <div class="di"><div class="di-amt">PKR 3,000</div><div class="di-desc">Funds one month of schooling including teacher salary allocation for that child</div></div>
+            <div class="di"><div class="di-amt">PKR 10,000</div><div class="di-desc">Covers a full year's textbooks and learning materials for one student</div></div>
+            <div class="di"><div class="di-amt">PKR 25,000</div><div class="di-desc">Awards a full annual scholarship — completely free education for one deserving child</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up d2">
+        <div class="don-form">
+          <div id="donateFormBody">
+            <div class="form-h">Make Your Donation</div>
+            <div class="row2">
+              <div class="fg" id="fg-dname">
+                <label>Full Name *</label>
+                <input type="text" id="d-name" placeholder="Your full name"/>
+                <div class="err-msg">Please enter your name</div>
+              </div>
+              <div class="fg" id="fg-demail">
+                <label>Email Address *</label>
+                <input type="email" id="d-email" placeholder="you@email.com"/>
+                <div class="err-msg">Please enter a valid email</div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="fg" id="fg-dphone">
+                <label>Phone Number *</label>
+                <input type="tel" id="d-phone" placeholder="0300-1234567"/>
+                <div class="err-msg">Please enter your phone</div>
+              </div>
+                            <div class="fg">
+                <label>Donation Type</label>
+                <select id="d-type">
+                  <option>One-Time Donation</option>
+                  <option>Monthly Recurring</option>
+                  <option>Zakat</option>
+                  <option>Corporate / CSR</option>
+                </select>
+              </div>
+            </div>
+            <div class="fg" id="fg-damt">
+              <label>Donation Amount (PKR) *</label>
+              <div class="pills">
+                <div class="pill" onclick="pickAmt(this,'1000')">1,000</div>
+                <div class="pill" onclick="pickAmt(this,'3000')">3,000</div>
+                <div class="pill" onclick="pickAmt(this,'5000')">5,000</div>
+                <div class="pill" onclick="pickAmt(this,'10000')">10,000</div>
+                <div class="pill" onclick="pickAmt(this,'25000')">25,000</div>
+              </div>
+              <input type="number" id="d-amt" placeholder="Or enter a custom amount" min="100" style="margin-top:8px"/>
+              <div class="err-msg">Please enter a donation amount</div>
+            </div>
+            <div class="fg">
+              <label>Payment Method</label>
+              <div class="pay-grid">
+                <div class="pay-card" onclick="pickPay(this)"><div class="p-ico">🏦</div><div class="p-lbl">Bank Transfer</div></div>
+                <div class="pay-card" onclick="pickPay(this)"><div class="p-ico">📱</div><div class="p-lbl">EasyPaisa / JazzCash</div></div>
+                <div class="pay-card" onclick="pickPay(this)"><div class="p-ico">💳</div><div class="p-lbl">Debit / Credit Card</div></div>
+              </div>
+            </div>
+            <div class="fg">
+              <label>Message (Optional)</label>
+              <textarea id="d-msg" placeholder="A note for our team, or in memory of someone special..." style="min-height:72px"></textarea>
+            </div>
+            <button class="btn-donate" onclick="submitDonate()">💛 Donate Now</button>
+            <div class="trust-row">
+              <span>🔒 Secure & Confidential</span>
+              <span>🧾 Tax Receipts Issued</span>
+              <span>✅ Registered Non-Profit</span>
+            </div>
+          </div>
+          <div class="success-box" id="donateSuccess">
+            <div class="ico">💛</div>
+            <h3>Thank You for Your Generosity!</h3>
+            <p>Your donation has been recorded. Our team will reach out within <strong>24 hours</strong> with payment details and your official tax receipt. You've just helped brighten a child's future — and for that, we are truly grateful.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CTA STRIP ══════ -->
+<section id="cta">
+  <div class="mw center fade-up">
+    <h2>Help Us Educate 5,000 Children by 2027</h2>
+    <p>Your support — big or small — directly funds a child's education. Join thousands of BCF supporters changing lives through the power of learning.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="#donate" class="btn-gold">Make a Difference Today</a>
+      <a href="#admissions" class="btn-wh" style="border-color:rgba(255,255,255,.4)">Enrol Your Child</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <div class="nb-seal" style="width:50px;height:50px;font-size:16px;margin-bottom:18px">BCF</div>
+      <h3>Bright Children Foundation</h3>
+      <p>Providing inclusive, quality education to underprivileged children across Pakistan since 2020. Because every child deserves to shine.</p>
+    </div>
+    <div class="ft-col">
+      <h4>Navigate</h4>
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#programs">Programs</a>
+      <a href="#gallery">Gallery</a>
+    </div>
+    <div class="ft-col">
+      <h4>Get Involved</h4>
+      <a href="#admissions">Apply Now</a>
+      <a href="#donate">Donate</a>
+      <a href="#team">Our Team</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="ft-col">
+      <h4>Contact</h4>
+      <p>📍 Plot 45-B, Gulshan-e-Ravi, Lahore</p>
+      <p>📞 0300-BCFCARE</p>
+      <p>✉️ info@bcfpakistan.org</p>
+      <p>🌐 www.bcfpakistan.org</p>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p>© 2025 Bright Children Foundation. All rights reserved.</p>
+    <p>Registered Non-Profit · Tax Exempt · <a href="#">Privacy Policy</a> · <a href="#">Financial Reports</a></p>
+  </div>
+</footer>
+
+<script>
+/* ── NAV: SCROLL STATE ── */
+const nav = document.getElementById('navbar');
+const sections = document.querySelectorAll('section[id], div[id="ribbon"]');
+const navLinks = document.querySelectorAll('.nb-links a');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) {
+    nav.classList.remove('top'); nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled'); nav.classList.add('top');
+  }
+  // Active nav link
+  let cur = '';
+  document.querySelectorAll('section[id]').forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) cur = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.remove('act');
+    if (a.getAttribute('href') === '#' + cur) a.classList.add('act');
+  });
+}, { passive: true });
+
+/* ── MOBILE DRAWER ── */
+const burger = document.getElementById('burger');
+const drawer = document.getElementById('drawer');
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  drawer.classList.toggle('open');
+});
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  burger.classList.remove('open'); drawer.classList.remove('open');
+}));
+
+/* ── COUNT-UP ANIMATION ── */
+function animateCount(el, target) {
+  const suffix = el.textContent.includes('+') ? '+' : (el.dataset.target == 98 ? '%' : '');
+  let start = 0; const dur = 2000; const step = 16;
+  const inc = target / (dur / step);
+  const timer = setInterval(() => {
+    start = Math.min(start + inc, target);
+    el.textContent = Math.floor(start).toLocaleString() + suffix;
+    if (start >= target) clearInterval(timer);
+  }, step);
+}
+let counted = false;
+const heroSec = document.getElementById('home');
+const observer = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting && !counted) {
+    counted = true;
+    document.querySelectorAll('.hs-num[data-target]').forEach(el => {
+      const t = parseInt(el.dataset.target);
+      const sfx = t === 98 ? '%' : '+';
+      animateCount(el, t);
+      el.dataset.suffix = sfx;
+    });
+  }
+}, { threshold: 0.3 });
+observer.observe(heroSec);
+
+/* ── SCROLL FADE-UP ── */
+const fObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); fObserver.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => fObserver.observe(el));
+
+/* ── FAQ ACCORDION ── */
+function toggleFaq(el) {
+  const ans = el.nextElementSibling;
+  const isOpen = ans.classList.contains('open');
+  document.querySelectorAll('.fq').forEach(q => { q.classList.remove('open'); q.nextElementSibling.classList.remove('open'); });
+  if (!isOpen) { el.classList.add('open'); ans.classList.add('open'); }
+}
+
+/* ── DONATE PILLS ── */
+function pickAmt(el, val) {
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('d-amt').value = val;
+  document.getElementById('fg-damt').classList.remove('err');
+}
+function pickPay(el) {
+  document.querySelectorAll('.pay-card').forEach(p => p.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+/* ── ADMISSIONS FORM ── */
+function validate(id, fieldId) {
+  const el = document.getElementById(id);
+  const fg = document.getElementById(fieldId);
+  if (!el || !fg) return true;
+  const ok = el.value.trim() !== '' && el.value !== '';
+  fg.classList.toggle('err', !ok);
+  return ok;
+}
+function submitAdm() {
+  const v = [
+    validate('a-sname','fg-sname'),
+    validate('a-fname','fg-fname'),
+    validate('a-age','fg-age'),
+    validate('a-class','fg-class'),
+    validate('a-addr','fg-addr'),
+    validate('a-phone','fg-phone'),
+    validate('a-why','fg-why'),
+  ];
+  if (v.includes(false)) return;
+  document.getElementById('admFormBody').style.display = 'none';
+  document.getElementById('admSuccess').classList.add('show');
+  document.getElementById('admissions').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ── DONATE FORM ── */
+function submitDonate() {
+  const name = document.getElementById('d-name').value.trim();
+  const email = document.getElementById('d-email').value.trim();
+  const phone = document.getElementById('d-phone').value.trim();
+  const amt = document.getElementById('d-amt').value;
+  let ok = true;
+  ['fg-dname','fg-demail','fg-dphone'].forEach((fg,i) => {
+    const vals = [name,email,phone];
+    const el = document.getElementById(fg);
+    if (!vals[i]) { el.classList.add('err'); ok=false; } else el.classList.remove('err');
+  });
+  const amtFg = document.getElementById('fg-damt');
+  if (!amt || Number(amt) < 100) { amtFg.classList.add('err'); ok=false; } else amtFg.classList.remove('err');
+  if (!ok) return;
+  document.getElementById('donateFormBody').style.display = 'none';
+  document.getElementById('donateSuccess').classList.add('show');
+  document.getElementById('donate').scrollIntoView({ behavior:'smooth' });
+}
+
+/* ── SMOOTH ANCHOR SCROLL + CLOSE DRAWER ── */
+document.query
