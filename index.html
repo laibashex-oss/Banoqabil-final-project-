@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BCF — Bright Children Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --sun:#F5A623;--sky:#1A3C5E;--leaf:#2E7D32;
+      --cream:#FDF8F0;--chalk:#FFFFFF;--ink:#0D1B2A;
+      --mist:#E8EFF6;--accent:#FF6B35;--red:#D32F2F;
+      --font-display:'Fraunces',Georgia,serif;
+      --font-body:'DM Sans',system-ui,sans-serif;
+      --tr:0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{font-family:var(--font-body);background:var(--cream);color:var(--ink);overflow-x:hidden}
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    button{font-family:var(--font-body)}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(253,248,240,.95);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border-bottom:1.5px solid rgba(26,60,94,.08);padding:0 5vw;height:68px;
+      display:flex;align-items:center;justify-content:space-between;
+      transition:box-shadow var(--tr)}
+    nav.scrolled{box-shadow:0 4px 30px rgba(13,27,42,.08)}
+    .nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+    .nav-logo-badge{width:38px;height:38px;background:var(--sky);border-radius:50%;
+      display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .nav-logo-badge span{font-family:var(--font-display);font-weight:900;color:var(--sun);font-size:13px;letter-spacing:-0.5px}
+    .nav-logo-text{font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--sky);line-height:1.1}
+    .nav-logo-text small{display:block;font-family:var(--font-body);font-weight:400;font-size:.62rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+    .nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+    .nav-links a{font-size:.88rem;font-weight:500;color:var(--sky);letter-spacing:.02em;position:relative;padding-bottom:2px;transition:color var(--tr)}
+    .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:var(--sun);transition:width var(--tr)}
+    .nav-links a:hover{color:var(--accent)}
+    .nav-links a:hover::after{width:100%}
+    .nav-cta{background:var(--sky)!important;color:var(--chalk)!important;padding:9px 22px;border-radius:30px;font-weight:600!important;font-size:.83rem!important;transition:background var(--tr),transform var(--tr)!important}
+    .nav-cta::after{display:none!important}
+    .nav-cta:hover{background:var(--accent)!important;transform:translateY(-1px)}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:201;position:relative}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--sky);border-radius:2px;transition:var(--tr)}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:var(--cream);
+      border-bottom:1.5px solid rgba(26,60,94,.1);padding:24px 5vw 32px;z-index:199;
+      flex-direction:column;gap:20px;box-shadow:0 10px 40px rgba(13,27,42,.08)}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-size:1.1rem;font-weight:500;color:var(--sky);padding-bottom:12px;border-bottom:1px solid rgba(26,60,94,.08)}
+    .mobile-menu .nav-cta{text-align:center;border:none;padding:12px 22px;border-radius:30px;margin-top:4px}
+
+    /* ── HERO ── */
+    .hero{min-height:100vh;padding:130px 5vw 80px;background:var(--sky);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+    .hero::before{content:'';position:absolute;top:-120px;right:-100px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,.18) 0%,transparent 70%);pointer-events:none}
+    .hero::after{content:'';position:absolute;bottom:-60px;left:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,.14) 0%,transparent 70%);pointer-events:none}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sun);margin-bottom:24px}
+    .hero-eyebrow::before{content:'';display:block;width:28px;height:2px;background:var(--sun);border-radius:2px}
+    .hero-headline{font-family:var(--font-display);font-size:clamp(2.8rem,7vw,6.2rem);font-weight:900;color:var(--chalk);line-height:1;letter-spacing:-.02em;max-width:820px;margin-bottom:28px}
+    .hero-headline em{font-style:italic;font-weight:300;color:var(--sun)}
+    .hero-sub{font-size:clamp(1rem,2vw,1.2rem);font-weight:300;color:rgba(255,255,255,.72);max-width:520px;line-height:1.7;margin-bottom:48px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+    .btn-primary{background:var(--sun);color:var(--ink);padding:14px 34px;border-radius:40px;font-weight:700;font-size:.92rem;letter-spacing:.01em;transition:background var(--tr),transform var(--tr),box-shadow var(--tr);box-shadow:0 4px 20px rgba(245,166,35,.3);border:none;cursor:pointer;display:inline-block}
+    .btn-primary:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,107,53,.35)}
+    .btn-ghost{color:var(--chalk);border:1.5px solid rgba(255,255,255,.35);padding:14px 34px;border-radius:40px;font-weight:500;font-size:.92rem;transition:border-color var(--tr),background var(--tr);background:none;cursor:pointer;display:inline-block}
+    .btn-ghost:hover{border-color:var(--sun);background:rgba(245,166,35,.08)}
+    .hero-stats{display:flex;flex-wrap:wrap;gap:40px;margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,.12)}
+    .stat-num{font-family:var(--font-display);font-size:2.6rem;font-weight:900;color:var(--sun);line-height:1;letter-spacing:-.03em}
+    .stat-label{font-size:.78rem;font-weight:400;color:rgba(255,255,255,.5);letter-spacing:.04em;margin-top:4px;text-transform:uppercase}
+
+    /* ── MARQUEE ── */
+    .marquee-band{background:var(--sun);padding:14px 0;overflow:hidden;white-space:nowrap}
+    .marquee-track{display:inline-block;animation:marquee 32s linear infinite}
+    .marquee-track span{display:inline-block;font-family:var(--font-display);font-weight:700;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sky);margin:0 28px}
+    .marquee-track span.dot{color:var(--accent);font-size:1.1rem;margin:0 4px}
+    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+    /* ── SECTION SHARED ── */
+    section{padding:100px 5vw}
+    .section-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+    .section-eyebrow::before{content:'';display:block;width:22px;height:2px;background:var(--accent);border-radius:2px}
+    .section-title{font-family:var(--font-display);font-size:clamp(2rem,4.5vw,3.4rem);font-weight:900;color:var(--sky);line-height:1.1;letter-spacing:-.02em;max-width:640px;margin-bottom:20px}
+    .section-title em{font-style:italic;font-weight:300;color:var(--accent)}
+    .section-body{font-size:1.05rem;font-weight:300;line-height:1.8;color:#3A4B5C;max-width:580px}
+
+    /* ── ABOUT ── */
+    .about{background:var(--chalk)}
+    .about-inner{display:flex;align-items:center;gap:80px}
+    .about-text{flex:1 1 360px}
+    .about-visual{flex:1 1 360px;position:relative}
+    .about-card{background:var(--sky);border-radius:20px;padding:48px 40px;color:var(--chalk);position:relative;overflow:hidden}
+    .about-card::after{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(245,166,35,.15);pointer-events:none}
+    .about-card-quote{font-family:var(--font-display);font-size:1.55rem;font-weight:300;font-style:italic;line-height:1.45;margin-bottom:28px;position:relative;z-index:1}
+    .about-card-author{font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sun);position:relative;z-index:1}
+    .about-badge{position:absolute;bottom:-18px;right:28px;background:var(--sun);border-radius:50%;width:88px;height:88px;display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 8px 28px rgba(245,166,35,.4);text-align:center}
+    .about-badge span{font-family:var(--font-display);font-weight:900;font-size:1.5rem;color:var(--sky);line-height:1}
+    .about-badge small{font-size:.58rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sky)}
+
+    /* ── PILLARS ── */
+    .pillars{background:var(--mist)}
+    .pillars-header{max-width:680px;margin-bottom:64px}
+    .pillars-row{display:flex;flex-wrap:wrap;gap:28px}
+    .pillar-card{flex:1 1 260px;background:var(--chalk);border-radius:16px;padding:40px 32px;position:relative;overflow:hidden;transition:transform var(--tr),box-shadow var(--tr);cursor:default}
+    .pillar-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(26,60,94,.1)}
+    .pillar-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:1.6rem}
+    .pillar-icon.blue{background:rgba(26,60,94,.08)}
+    .pillar-icon.sun{background:rgba(245,166,35,.12)}
+    .pillar-icon.leaf{background:rgba(46,125,50,.1)}
+    .pillar-icon.coral{background:rgba(255,107,53,.1)}
+    .pillar-title{font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--sky);margin-bottom:12px;letter-spacing:-.01em}
+    .pillar-text{font-size:.9rem;font-weight:300;line-height:1.75;color:#4A5F72}
+    .pillar-num{position:absolute;top:20px;right:24px;font-family:var(--font-display);font-weight:900;font-size:3.5rem;color:rgba(26,60,94,.05);line-height:1;letter-spacing:-.04em;user-select:none}
+
+    /* ── PROGRAMS ── */
+    .programs{background:var(--chalk)}
+    .programs-header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:56px}
+    .programs-list{display:flex;flex-direction:column;gap:2px}
+    .program-item{display:flex;align-items:center;gap:28px;padding:28px 32px;background:var(--mist);border-radius:12px;border-left:4px solid transparent;transition:border-color var(--tr),background var(--tr),transform var(--tr);cursor:pointer}
+    .program-item:hover{background:#EFF3F8;transform:translateX(4px)}
+    .program-item:nth-child(1):hover{border-left-color:var(--sun)}
+    .program-item:nth-child(2):hover{border-left-color:var(--accent)}
+    .program-item:nth-child(3):hover{border-left-color:var(--leaf)}
+    .program-item:nth-child(4):hover{border-left-color:var(--sky)}
+    .program-icon{font-size:2rem;flex-shrink:0}
+    .program-info{flex:1}
+    .program-name{font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--sky);margin-bottom:4px}
+    .program-desc{font-size:.88rem;color:#5A6E80;line-height:1.6}
+    .program-tag{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--chalk);color:var(--sky);padding:5px 12px;border-radius:20px;flex-shrink:0;border:1px solid rgba(26,60,94,.1)}
+
+    /* ── IMPACT ── */
+    .impact{background:var(--ink);position:relative;overflow:hidden}
+    .impact::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,.08),transparent 70%);pointer-events:none}
+    .impact .section-title{color:var(--chalk);max-width:480px}
+    .impact .section-eyebrow{color:var(--sun)}
+    .impact .section-eyebrow::before{background:var(--sun)}
+    .impact .section-body{color:rgba(255,255,255,.55)}
+    .impact-header{margin-bottom:72px}
+    .impact-cards{display:flex;flex-wrap:wrap;gap:24px}
+    .impact-card{flex:1 1 180px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:36px 28px;transition:background var(--tr),border-color var(--tr)}
+    .impact-card:hover{background:rgba(255,255,255,.07);border-color:rgba(245,166,35,.3)}
+    .impact-number{font-family:var(--font-display);font-size:3rem;font-weight:900;color:var(--sun);letter-spacing:-.04em;line-height:1;margin-bottom:8px}
+    .impact-label{font-size:.82rem;font-weight:400;color:rgba(255,255,255,.45);letter-spacing:.05em;line-height:1.5}
+
+    /* ── TEAM ── */
+    .team{background:var(--cream)}
+    .team-header{margin-bottom:60px}
+    .team-row{display:flex;flex-wrap:wrap;gap:28px}
+    .team-card{flex:1 1 200px;background:var(--chalk);border-radius:16px;overflow:hidden;transition:transform var(--tr),box-shadow var(--tr)}
+    .team-card:hover{transform:translateY(-5px);box-shadow:0 16px 44px rgba(26,60,94,.1)}
+    .team-avatar{height:180px;display:flex;align-items:center;justify-content:center;font-size:3.5rem}
+    .team-avatar.c1{background:linear-gradient(135deg,#E8F0FE,#BBDEFB)}
+    .team-avatar.c2{background:linear-gradient(135deg,#FFF3E0,#FFE0B2)}
+    .team-avatar.c3{background:linear-gradient(135deg,#E8F5E9,#C8E6C9)}
+    .team-avatar.c4{background:linear-gradient(135deg,#FCE4EC,#F8BBD0)}
+    .team-info{padding:24px 22px}
+    .team-name{font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--sky);margin-bottom:3px}
+    .team-role{font-size:.78rem;color:var(--accent);font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+    .team-bio{margin-top:10px;font-size:.83rem;color:#5A6E80;line-height:1.65}
+
+    /* ── TESTIMONIAL ── */
+    .testimonial{background:var(--sun);padding:80px 5vw;text-align:center}
+    .testimonial-quote{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.5rem);font-weight:300;font-style:italic;color:var(--sky);max-width:820px;margin:0 auto 28px;line-height:1.4;letter-spacing:-.01em}
+    .testimonial-attr{font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(26,60,94,.6)}
+
+    /* ── CONTACT ── */
+    .contact{background:var(--mist)}
+    .contact-inner{display:flex;flex-wrap:wrap;gap:80px;align-items:flex-start}
+    .contact-text{flex:1 1 340px}
+    .contact-form-wrap{flex:1 1 340px}
+
+    /* Form */
+    .form-row{display:flex;gap:16px}
+    .form-row .form-field{flex:1}
+    .form-field{margin-bottom:18px;position:relative}
+    .form-field label{display:block;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sky);margin-bottom:6px}
+    .form-field input,.form-field select,.form-field textarea{
+      width:100%;padding:13px 16px;font-family:var(--font-body);font-size:.95rem;
+      background:var(--chalk);border:1.5px solid rgba(26,60,94,.15);border-radius:10px;
+      color:var(--ink);outline:none;transition:border-color var(--tr),box-shadow var(--tr);
+      -webkit-appearance:none;appearance:none}
+    .form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--sky);box-shadow:0 0 0 3px rgba(26,60,94,.08)}
+    .form-field.error input,.form-field.error select,.form-field.error textarea{border-color:var(--red);box-shadow:0 0 0 3px rgba(211,47,47,.08)}
+    .form-field textarea{resize:vertical;min-height:120px}
+    .field-err{display:none;font-size:.75rem;color:var(--red);margin-top:5px;font-weight:500}
+    .form-field.error .field-err{display:block}
+    .form-field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231A3C5E' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+    .form-submit{background:var(--sky);color:var(--chalk);border:none;padding:15px 36px;border-radius:40px;font-family:var(--font-body);font-weight:700;font-size:.95rem;cursor:pointer;width:100%;transition:background var(--tr),transform var(--tr);letter-spacing:.02em;margin-top:4px}
+    .form-submit:hover{background:var(--accent);transform:translateY(-1px)}
+    .form-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .form-success{display:none;background:#E8F5E9;border:1.5px solid #A5D6A7;border-radius:12px;padding:28px 24px;text-align:center}
+    .form-success.show{display:block}
+    .form-success-icon{font-size:2.5rem;margin-bottom:12px}
+    .form-success h3{font-family:var(--font-display);font-weight:700;color:var(--leaf);font-size:1.4rem;margin-bottom:8px}
+    .form-success p{font-size:.9rem;color:#4A5F72;line-height:1.6}
+
+    .contact-info-block{margin-top:40px;display:flex;flex-direction:column;gap:18px}
+    .contact-info-item{display:flex;align-items:flex-start;gap:12px}
+    .contact-info-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+    .contact-info-content{font-size:.88rem;color:#4A5F72;line-height:1.6}
+    .contact-info-content strong{display:block;color:var(--sky);font-weight:600;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+
+    /* ── MODAL ── */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(13,27,42,.65);z-index:500;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+    .modal-overlay.open{display:flex}
+    .modal{background:var(--chalk);border-radius:20px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:40px 36px;position:relative;animation:modalIn .3s ease}
+    @keyframes modalIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .modal-close{position:absolute;top:18px;right:18px;background:var(--mist);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:background var(--tr)}
+    .modal-close:hover{background:#dde5ee}
+    .modal-title{font-family:var(--font-display);font-weight:700;font-size:1.6rem;color:var(--sky);margin-bottom:6px;letter-spacing:-.02em}
+    .modal-sub{font-size:.88rem;color:#5A6E80;margin-bottom:28px;line-height:1.6}
+
+    /* Donation amounts */
+    .donate-amounts{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+    .donate-amt{flex:1 1 80px;padding:12px 8px;border:2px solid rgba(26,60,94,.15);border-radius:10px;font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--sky);background:none;cursor:pointer;text-align:center;transition:border-color var(--tr),background var(--tr)}
+    .donate-amt:hover,.donate-amt.active{border-color:var(--sky);background:rgba(26,60,94,.06)}
+
+    /* ── TOAST ── */
+    .toast{position:fixed;bottom:32px;right:32px;background:var(--ink);color:var(--chalk);padding:16px 22px;border-radius:12px;font-size:.88rem;z-index:999;transform:translateY(80px);opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);max-width:320px;box-shadow:0 8px 32px rgba(13,27,42,.25);display:flex;align-items:flex-start;gap:12px}
+    .toast.show{transform:translateY(0);opacity:1}
+    .toast-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+    .toast-body strong{display:block;margin-bottom:2px;font-weight:600}
+        .toast-body span{color:rgba(255,255,255,.65);font-size:.8rem}
+
+    /* ── FOOTER ── */
+    footer{background:var(--ink);padding:60px 5vw 32px}
+    .footer-top{display:flex;flex-wrap:wrap;gap:48px;justify-content:space-between;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:32px}
+    .footer-brand{max-width:280px}
+    .footer-brand .nav-logo-text{color:var(--chalk);font-size:1.2rem}
+    .footer-brand .nav-logo-text small{color:var(--sun)}
+    .footer-brand p{margin-top:16px;font-size:.85rem;color:rgba(255,255,255,.45);line-height:1.7}
+    .footer-social{display:flex;gap:10px;margin-top:20px}
+    .footer-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:background var(--tr),transform var(--tr)}
+    .footer-social a:hover{background:var(--sun);transform:translateY(-2px)}
+    .footer-col h4{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px}
+    .footer-col ul{list-style:none}
+    .footer-col ul li{margin-bottom:10px}
+    .footer-col ul li a{font-size:.88rem;color:rgba(255,255,255,.55);transition:color var(--tr)}
+    .footer-col ul li a:hover{color:var(--sun)}
+    .footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px}
+    .footer-bottom p{font-size:.78rem;color:rgba(255,255,255,.3)}
+    .footer-bottom span{color:var(--sun)}
+    /* ── SCROLL REVEAL ── */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* ── BACK TO TOP ── */
+    #backTop{position:fixed;bottom:32px;left:32px;width:44px;height:44px;background:var(--sky);border:none;border-radius:50%;color:var(--chalk);font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:300;box-shadow:0 4px 16px rgba(26,60,94,.3);transition:background var(--tr),transform var(--tr)}
+    #backTop.show{display:flex}
+    #backTop:hover{background:var(--accent);transform:translateY(-2px)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      .nav-links{display:none!important}.hamburger{display:flex!important}
+      .about-inner{flex-direction:column;gap:48px}
+      .about-visual{width:100%}
+      .contact-inner{flex-direction:column;gap:48px}
+    }
+    @media(max-width:640px){
+      section{padding:72px 5vw}
+      .hero{padding:100px 5vw 64px;min-height:100dvh}
+      .hero-stats{gap:24px}.stat-num{font-size:2rem}
+      .pillar-card{flex:1 1 100%}
+      .impact-card{flex:1 1 140px}
+      .team-card{flex:1 1 44%}
+      .program-item{flex-direction:column;align-items:flex-start;gap:12px}
+      .program-tag{display:none}
+      .footer-top{flex-direction:column;gap:36px}
+      .form-row{flex-direction:column;gap:0}
+      .toast{bottom:16px;right:16px;left:16px;max-width:none}
+      #backTop{bottom:16px;left:16px}
+      .modal{padding:28px 20px}
+    }    @media(max-width:400px){.team-card{flex:1 1 100%}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <div class="nav-logo" onclick="scrollTo({top:0,behavior:'smooth'})">
+    <div class="nav-logo-badge"><span>BCF</span></div>
+    <div class="nav-logo-text">Bright Children<small>Foundation</small></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#pillars">Our Pillars</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#contact" class="nav-cta">Get Involved</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav><div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="menu-link">About</a>
+  <a href="#pillars" class="menu-link">Our Pillars</a>
+  <a href="#programs" class="menu-link">Programs</a>
+  <a href="#team" class="menu-link">Team</a>
+  <a href="#impact" class="menu-link">Impact</a>
+  <a href="#contact" class="nav-cta menu-link">Get Involved</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero" id="home">
+  <div class="hero-eyebrow">BCF · Est. 2009</div>
+  <h1 class="hero-headline">Every child deserves to <em>shine</em>.</h1>
+  <p class="hero-sub">BCF — Bright Children Foundation is a school and community program dedicated to nurturing the intellectual, emotional, and creative potential of every child, regardless of background.</p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="openModal('enroll')">Explore Programs</button>
+    <button class="btn-ghost" onclick="openModal('donate')">Support a Child</button>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><div class="stat-num" id="hs1">0</div><div class="stat-label">Students Reached</div></div>
+    <div class="stat-item"><div class="stat-num" id="hs2">0</div><div class="stat-label">Partner Schools</div></div>
+    <div class="stat-item"><div class="stat-num" id="hs3">0%</div><div class="stat-label">Graduation Rate</div></div>
+    <div class="stat-item"><div class="stat-num" id="hs4">0</div><div class="stat-label">Years of Impact</div></div>
+  </div>
+</section><!-- ── MARQUEE ── -->
+<div class="marquee-band" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Education</span><span class="dot">✦</span><span>Excellence</span><span class="dot">✦</span><span>Empathy</span><span class="dot">✦</span><span>Bright Futures</span><span class="dot">✦</span><span>Every Child Counts</span><span class="dot">✦</span><span>BCF Foundation</span><span class="dot">✦</span><span>Innovation</span><span class="dot">✦</span><span>Community</span><span class="dot">✦</span><span>Education</span><span class="dot">✦</span><span>Excellence</span><span class="dot">✦</span><span>Empathy</span><span class="dot">✦</span><span>Bright Futures</span><span class="dot">✦</span><span>Every Child Counts</span><span class="dot">✦</span><span>BCF Foundation</span><span class="dot">✦</span><span>Innovation</span><span class="dot">✦</span><span>Community</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section class="about reveal" id="about">
+  <div class="about-inner">
+    <div class="about-text">
+      <div class="section-eyebrow">Who We Are</div>
+      <h2 class="section-title">A school built on <em>belief</em></h2>
+      <p class="section-body">Founded in 2009, the Bright Children Foundation began with a simple belief: every child, given the right environment, can achieve extraordinary things. We operate both a primary school and outreach programs across underserved communities.</p>
+      <p class="section-body" style="margin-top:20px">BCF blends rigorous academics with social-emotional learning, arts, and STEM exploration — shaping curious, confident, and compassionate young people who go on to lead.</p>
+      <button class="btn-primary" style="margin-top:36px" onclick="document.getElementById('programs').scrollIntoView({behavior:'smooth'})">See Our Approach</button>
+    </div>
+    <div class="about-visual">
+      <div class="about-card">
+        <p class="about-card-quote">"We don't just teach children — we help them discover who they are and what they're capable of becoming."</p>
+        <div class="about-card-author">Dr. Amara Osei · Founder &amp; Director</div>
+      </div>
+      <div class="about-badge"><span>15</span><small>Years<br>Strong</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PILLARS ── -->
+<section class="pillars" id="pillars">
+  <div class="pillars-header reveal">
+    <div class="section-eyebrow">Our Pillars</div>
+    <h2 class="section-title">Four commitments, <em>one mission</em></h2>
+  </div><!-- ── PILLARS ── -->
+<section class="pillars" id="pillars">
+  <div class="pillars-header reveal">
+    <div class="section-eyebrow">Our Pillars</div>
+    <h2 class="section-title">Four commitments, <em>one mission</em></h2>
+  </div>
+  <div class="pillars-row">
+    <div class="pillar-card reveal"><div class="pillar-num">01</div><div class="pillar-icon blue">📚</div><div class="pillar-title">Academic Excellence</div><p class="pillar-text">A challenging, joyful curriculum that builds critical thinking, literacy, and numeracy from the earliest years through graduation.</p></div>
+    <div class="pillar-card reveal"><div class="pillar-num">02</div><div class="pillar-icon sun">🌞</div><div class="pillar-title">Emotional Well-being</div><p class="pillar-text">Mental health support, peer mentorship, and social-emotional programming ensure every student feels safe, valued, and heard.</p></div>
+    <div class="pillar-card reveal"><div class="pillar-num">03</div><div class="pillar-icon leaf">🌱</div><div class="pillar-title">Creative Expression</div><p class="pillar-text">Music, visual arts, drama, and movement are not extras — they are core to how children make meaning and build confidence.</p></div>
+    <div class="pillar-card reveal"><div class="pillar-num">04</div><div class="pillar-icon coral">🤝</div><div class="pillar-title">Community Roots</div><p class="pillar-text">Families and neighborhoods are partners. BCF works alongside parents, local leaders, and organizations to amplify impact.</p></div>
+  </div>
+</section>
+
+>al('enroll')">
+      <div class="program-icon">🌼</div>
+      <div class="program-info"><div class="program-name">Early Spark (Ages 3–6)</div><div class="program-desc">Play-based early childhood education that builds language, curiosity, and foundational social skills through discovery.</div></div>
+      <div class="program-tag">Early Childhood</div>
+    </div>
+    <div class="program-item" onclick="openModal('enroll')">
+      <div class="program-icon">🔬</div>
+      <div class="program-info"><div class="program-name">STEM Explorers (Ages 7–12)</div><div class="program-desc">Hands-on science, robotics, coding workshops, and mathematics immersion for primary students ready to question the world.</div></div>
+      <div class="program-tag">Primary</div>
+    </div>
+  <div class="pillars-row">
+    <div class="pillar-card reveal"><div class="pillar-num">01</div><div class="pillar-icon blue">📚</div><div class="pillar-title">Academic Excellence</div><p class="pillar-text">A challenging, joyful curriculum that builds critical thinking, literacy, and numeracy from the earliest years through graduation.</p></div>
+    <div class="pillar-card reveal"><div class="pillar-num">02</div><div class="pillar-icon sun">🌞</div><div class="pillar-title">Emotional Well-being</div><p class="pillar-text">Mental health support, peer mentorship, and social-emotional programming ensure every student feels safe, valued, and heard.</p></div>
+    <div class="pillar-card reveal"><div class="pillar-num">03</div><div class="pillar-icon leaf">🌱</div><div class="pillar-title">Creative Expression</div><p class="pillar-text">Music, visual arts, drama, and movement are not extras — they are core to how children make meaning and build confidence.</p></div>
+    <div class="pillar-card reveal"><div class="pillar-num">04</div><div class="pillar-icon coral">🤝</div><div class="pillar-title">Community Roots</div><p class="pillar-text">Families and neighborhoods are partners. BCF works alongside parents, local leaders, and organizations to amplify impact.</p></div>
+  </div>
+<div class="program-item" onclick="openModal('enroll')">
+      <div class="program-icon">🎨</div>
+      <div class="program-info"><div class="program-name">Arts &amp; Identity (Ages 10–15)</div><div class="program-desc">Visual art, music, spoken word, and theatre programs that help young people find and express their authentic voice.</div></div>
+      <div class="program-tag">Junior</div>
+    </div>
+    <div class="program-item" onclick="openModal('enroll')">
+      <div class="program-icon">🎓</div>
+      <div class="program-info"><div class="program-name">Bright Leaders (Ages 15–18)</div><div class="program-desc">College readiness, scholarship access, internship placements, and mentorship by professionals who look like our students.</div></div>
+      <div class="program-tag">Senior</div>
+    </div>
+  </div>
+</section>
+<!-- ── IMPACT ── -->
+<section class="impact" id="impact">
+  <div class="impact-header reveal">
+    <div class="section-eyebrow">Our Impact</div>
+    <h2 class="section-title">Numbers that <em>mean something</em></h2>
+    <p class="section-body" style="margin-top:16px">Behind every statistic is a child whose trajectory changed. Here's what we've built together.</p>
+  </div>
+  <div class="impact-cards reveal">
+    <div class="impact-card"><div class="impact-number" id="ic1">0</div><div class="impact-label">Students taught since 2009</div></div>
+    <div class="impact-card"><div class="impact-number" id="ic2">0%</div><div class="impact-label">High school graduation rate</div></div>
+    <div class="impact-card"><div class="impact-number" id="ic3">0%</div><div class="impact-label">Continue to higher education</div></div>
+    <div class="impact-card"><div class="impact-number" id="ic4">$0M</div><div class="impact-label">Scholarships awarded to date</div></div>
+    <div class="impact-card"><div class="impact-number" id="ic5">0</div><div class="impact-label">Volunteer educators annually</div></div>
+  </div>
+</section><!-- ── TEAM ── -->
+<section class="team" id="team">
+  <div class="team-header reveal">
+    <div class="section-eyebrow">The People</div>
+    <h2 class="section-title">Led by educators who <em>believe</em></h2>
+  </div>
+  <div class="team-row reveal">
+    <div class="team-card"><div class="team-avatar c1">👩🏾‍🏫</div><div class="team-info"><div class="team-name">Dr. Amara Osei</div><div class="team-role">Founder &amp; Director</div><p class="team-bio">Education PhD with 20 years developing literacy programs across West Africa and the diaspora.</p></div></div>
+    <div class="team-card"><div class="team-avatar c2">👨🏽‍💻</div><div class="team-info"><div class="team-name">Marcus Tena</div><div class="team-role">Head of STEM</div><p class="team-bio">Former software engineer who returned to teaching to bring real-world technology into classrooms.</p></div></div>
+    <div class="team-card"><div class="team-avatar c3">👩🏼‍🎨</div><div class="team-info"><div class="team-name">Sofia Cabral</div><div class="team-role">Arts Director</div><p class="team-bio">Muralist and educator who believes creativity is a fundamental human right, not a luxury.</p></div></div>
+    <div class="team-card"><div class="team-avatar c4">👨🏿‍⚕️</div><div class="team-info"><div class="team-name">James Adeyemi</div><div class="team-role">Wellbeing Lead</div><p class="team-bio">Child psychologist and counsellor dedicated to trauma-informed, culturally responsive care.</p></div></div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIAL ── -->
+<div class="testimonial reveal">
+  <p class="testimonial-quote">"BCF didn't just give me a place to learn — it gave me a sense of purpose. I'm the first in my family to go to university, and I know I wouldn't be here without this school."</p>
+  <div class="testimonial-attr">Kezia Mensah · BCF Graduate, Class of 2021</div>
+</div><!-- ── CONTACT ── -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-text reveal">
+      <div class="section-eyebrow">Get Involved</div>
+      <h2 class="section-title">Join us in <em>lighting the way</em></h2>
+      <p class="section-body">Whether you're a parent, donor, volunteer, or partner organization — there's a place for you in the BCF community. Every contribution helps a child step more fully into their potential.</p>
+      <div class="contact-info-block">
+        <div class="contact-info-item">
+          <div class="contact-info-icon">📍</div>
+          <div class="contact-info-content"><strong>Address</strong>14 Bright Avenue, Learning District<br>Accra, Ghana · GH-100</div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">📞</div>
+          <div class="contact-info-content"><strong>Phone</strong><a href="tel:+233302001234" style="color:inherit">+233 30 200 1234</a></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">✉️</div>
+          <div class="contact-info-content"><strong>Email</strong><a href="mailto:hello@bcffoundation.org" style="color:var(--sky);font-weight:500">hello@bcffoundation.org</a></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">🕐</div>
+          <div class="contact-info-content"><strong>Office Hours</strong>Monday – Friday, 8:00 AM – 5:00 PM GMT</div>
+        </div>
+      </div>
+    </div><div class="contact-form-wrap reveal">
+      <!-- Main contact form -->
+      <div id="contactFormBox">
+        <div class="form-row">
+          <div class="form-field" id="ff-fname">
+            <label for="c-fname">First Name *</label>
+            <input type="text" id="c-fname" placeholder="Jane"/>
+            <div class="field-err">Please enter your first name.</div>
+          </div>
+          <div class="form-field" id="ff-lname">
+            <label for="c-lname">Last Name *</label>
+            <input type="text" id="c-lname" placeholder="Doe"/>
+            <div class="field-err">Please enter your last name.</div>
+          </div>
+        </div>
+        <div class="form-field" id="ff-email">
+          <label for="c-email">Email Address *</label>
+          <input type="email" id="c-email" placeholder="jane@example.com"/>
+          <div class="field-err">Please enter a valid email address.</div>
+        </div>
+        <div class="form-field" id="ff-phone">
+          <label for="c-phone">Phone Number</label>
+          <input type="tel" id="c-phone" placeholder="+233 00 000 0000"/>
+        </div>
+        <div class="form-field" id="ff-intent">
+          <label for="c-intent">I would like to… *</label>
+          <select id="c-intent">
+            <option value="">Choose an option</option>
+            <option value="enroll">Enroll my child</option>
+            <option value="donate">Make a donation</option>
+            <option value="volunteer">Volunteer as an educator</option>
+            <option value="partner">Become a partner organization</option>
+            <option value="scholarship">Apply for a scholarship</option>
+            <option value="other">Learn more / other</option>
+          </select>
+          <div class="field-err">Please select an option.</div>
+        </div>
+        <div class="form-field" id="ff-msg"><label for="c-msg">Message *</label>
+          <textarea id="c-msg" placeholder="Tell us a little about yourself and how you'd like to get involved…"></textarea>
+          <div class="field-err">Please write a short message (at least 20 characters).</div>
+        </div>
+        <button class="form-submit" id="contactSubmit" onclick="submitContact()">Send Message ✈</button>
+      </div>
+      <div class="form-success" id="contactSuccess">
+        <div class="form-success-icon">🎉</div>
+        <h3>Message received!</h3>
+        <p>Thank you for reaching out. A member of the BCF team will get back to you within 2 business days.</p>
+      </div>
+    </div>
+  </div>
+</section><!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo" style="cursor:default">
+        <div class="nav-logo-badge"><span>BCF</span></div>
+        <div class="nav-logo-text">Bright Children<small>Foundation</small></div>
+      </div>
+      <p>Nurturing bright minds, building bright futures — one child at a time, since 2009.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook" onclick="showToast('📘','Facebook','Opening Facebook page…')">📘</a>
+        <a href="#" aria-label="Twitter/X" onclick="showToast('🐦','Twitter / X','Opening Twitter page…')">🐦</a>
+        <a href="#" aria-label="Instagram" onclick="showToast('📸','Instagram','Opening Instagram page…')">📸</a>
+        <a href="#" aria-label="YouTube" onclick="showToast('▶️','YouTube','Opening YouTube channel…')">▶️</a>
+        <a href="#" aria-label="LinkedIn" onclick="showToast('💼','LinkedIn','Opening LinkedIn page…')">💼</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#about">About BCF</a></li>
+        <li><a href="#pillars">Our Pillars</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#impact">Our Impact</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Get Involved</h4>
+      <ul><li><a href="#" onclick="openModal('enroll');return false">Enroll a Child</a></li>
+        <li><a href="#" onclick="openModal('donate');return false">Donate</a></li>
+        <li><a href="#" onclick="openModal('volunteer');return false">Volunteer</a></li>
+        <li><a href="#" onclick="openModal('partner');return false">Partner With Us</a></li>
+        <li><a href="#" onclick="openModal('scholarship');return false">Apply for Scholarship</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#" onclick="showToast('📄','Privacy Policy','Opening document…');return false">Privacy Policy</a></li>
+        <li><a href="#" onclick="showToast('📋','Terms of Use','Opening document…');return false">Terms of Use</a></li>
+        <li><a href="#" onclick="showToast('📊','Annual Report','Preparing download…');return false">Annual Report 2025</a></li>
+        <li><a href="mailto:hello@bcffoundation.org">hello@bcffoundation.org</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Bright Children Foundation. All rights reserved.</p>
+    <p>Made with <span>♥</span> for brighter futures.</p>
+  </div>
+</footer>
+
+<!-- ── BACK TO TOP ── -->
+<button id="backTop" aria-label="Back to top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button><!-- ── TOAST ── -->
+<div class="toast" id="toast">
+  <div class="toast-icon" id="toastIcon">✓</div>
+  <div class="toast-body"><strong id="toastTitle"></strong><span id="toastMsg"></span></div>
+</div>
+<!-- Enroll Modal -->
+<div class="modal-overlay" id="modal-enroll">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('enroll')">✕</button>
+    <div class="modal-title">📚 Enroll Your Child</div>
+    <div class="modal-sub">Fill in the details below and our admissions team will contact you within 48 hours.</div>
+    <div id="enrollFormBox">
+      <div class="form-row">
+        <div class="form-field" id="ef-pfname"><label>Parent / Guardian First Name *</label><input type="text" id="e-pfname" placeholder="Jane"/><div class="field-err">Required.</div></div>
+        <div class="form-field" id="ef-plname"><label>Last Name *</label><input type="text" id="e-plname" placeholder="Doe"/><div class="field-err">Required.</div></div>
+      </div>
+      <div class="form-field" id="ef-pemail"><label>Email *</label><input type="email" id="e-pemail" placeholder="jane@example.com"/><div class="field-err">Valid email required.</div></div>
+      <div class="form-field" id="ef-pphone"><label>Phone *</label><input type="tel" id="e-pphone" placeholder="+233 00 000 0000"/><div class="field-err">Required.</div></div>
+      <div class="form-row">
+        <div class="form-field" id="ef-cname"><label>Child's Name *</label><input type="text" id="e-cname" placeholder="Child's full name"/><div class="field-err">Required.</div></div>
+        <div class="form-field" id="ef-cage"><label>Child's Age *</label><input type="number" id="e-cage" min="3" max="18" placeholder="e.g. 7"/><div class="field-err">Enter age 3–18.</div></div>
+      </div>
+      <div class="form-field" id="ef-prog"><label>Program of Interest *</label>
+        <select id="e-prog">
+          <option value="">Select a program</option>
+          <option>Early Spark (Ages 3–6)</option>
+          <option>STEM Explorers (Ages 7–12)</option>
+          <option>Arts &amp; Identity (Ages 10–15)</option>
+          <option>Bright Leaders (Ages 15–18)</option>
+        </select>
+        <div class="field-err">Please select a program.</div>
+      </div>
+      <div class="form-field"><label>Additional Notes</label><textarea id="e-notes" placeholder="Anything else you'd like us to know?" style="min-height:80px"></textarea></div>
+      <button class="form-submit" onclick="submitEnroll()">Submit Enrollment Request ✈</button>
+    </div>
+    <div class="form-success" id="enrollSuccess">
+      <div class="form-success-icon">🎓</div>
+      <h3>Application submitted!</h3>
+      <p>Our admissions team will reach out within 48 hours to confirm next steps.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Donate Modal -->
+<div class="modal-overlay" id="modal-donate">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('donate')">✕</button>
+    <div class="modal-title">💛 Make a Donation</div>
+    <div class="modal-sub">Your generosity directly funds scholarships, materials, and teacher training.</div>
+    <div id="donateFormBox">
+      <div class="form-row">
+        <div class="form-field" id="df-fname"><label>First Name *</label><input type="text" id="d-fname" placeholder="Jane"/><div class="field-err">Required.</div></div>
+        <div class="form-field" id="df-lname"><label>Last Name *</label><input type="text" id="d-lname" placeholder="Doe"/><div class="field-err">Required.</div></div>
+      </div>   <div class="form-field" id="df-email"><label>Email *</label><input type="email" id="d-email" placeholder="jane@example.com"/><div class="field-err">Valid email required.</div></div>
+      <div class="form-field"><label>Donation Amount (USD) *</label>
+        <div class="donate-amounts">
+          <button class="donate-amt" onclick="setAmt(this,'25')">$25</button>
+          <button class="donate-amt" onclick="setAmt(this,'50')">$50</button>
+          <button class="donate-amt active" onclick="setAmt(this,'100')">$100</button>
+          <button class="donate-amt" onclick="setAmt(this,'250')">$250</button>
+          <button class="donate-amt" onclick="setAmt(this,'500')">$500</button>
+        </div>
+        <div class="form-field" id="df-amt" style="margin-bottom:0"><input type="number" id="d-amt" value="100" placeholder="Or enter custom amount" min="1"/><div class="field-err">Enter a valid amount.</div></div>
+      </div>
+      <div class="form-field" id="df-freq"><label>Frequency *</label>
+        <select id="d-freq">
+          <option value="once">One-time gift</option>
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+        </select>
+      </div>
+      <div class="form-field" id="df-card"><label>Card Number *</label><input type="text" id="d-card" placeholder="1234 5678 9012 3456" maxlength="19"/><div class="field-err">Enter a valid 16-digit card number.</div></div>
+      <div class="form-row">
+        <div class="form-field" id="df-exp"><label>Expiry *</label><input type="text" id="d-exp" placeholder="MM/YY" maxlength="5"/><div class="field-err">Enter MM/YY.</div></div>
+        <div class="form-field" id="df-cvv"><label>CVV *</label><input type="text" id="d-cvv" placeholder="123" maxlength="4"/><div class="field-err">Enter 3–4 digit CVV.</div></div>
+      </div>
+      <button class="form-submit" id="donateBtn" onclick="submitDonate()">Donate Now 💛</button>
+      <p style="text-align:center;font-size:.75rem;color:#8A9BAC;margin-top:12px">🔒 Payments are encrypted and secure. BCF is a registered non-profit.</p>
+    </div>    <div class="form-success" id="donateSuccess">
+      <div class="form-success-icon">💛</div>
+      <h3>Thank you for your gift!</h3>
+      <p>A receipt has been sent to your email. Your donation will help change a child's life.</p>
+    </div>
+  </div>
+</div><!-- Volunteer Modal -->
+<div class="modal-overlay" id="modal-volunteer">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('volunteer')">✕</button>
+    <div class="modal-title">🤝 Volunteer With Us</div>
+    <div class="modal-sub">Share your skills with the next generation. We welcome educators, professionals, artists, and mentors.</div>
+    <div id="volFormBox">
+      <div class="form-row">
+        <div class="form-field" id="vf-fname"><label>First Name *</label><input type="text" id="v-fname" placeholder="Jane"/><div class="field-err">Required.</div></div>
+        <div class="form-field" id="vf-lname"><label>Last Name *</label><input type="text" id="v-lname" placeholder="Doe"/><div class="field-err">Required.</div></div>
+      </div>
+      <div class="form-field" id="vf-email"><label>Email *</label><input type="email" id="v-email" placeholder="jane@example.com"/><div class="field-err">Valid email required.</div></div>
+      <div class="form-field" id="vf-prof"><label>Your Profession *</label><input type="text" id="v-prof" placeholder="e.g. Software Engineer, Artist, Teacher"/><div class="field-err">Required.</div></div>
+      <div class="form-field" id="vf-skill"><label>Area You'd Like to Contribute *</label>
+        <select id="v-skill">
+          <option value="">Select an area</option>
+          <option>STEM / Coding</option>
+          <option>Arts &amp; Music</option>
+          <option>Literacy / Reading</option>
+          <option>Career Mentorship</option>
+          <option>Sports &amp; Wellness</option>
+          <option>Administrative Support</option>
+          <option>Other</option>
+        </select>
+        <div class="field-err">Please select an area.</div>
+      </div>
+      <div class="form-field"><label>Availability</label><textarea id="v-avail" placeholder="e.g. Weekday mornings, Saturday afternoons…" style="min-height:80px"></textarea></div>
+      <button class="form-submit" onclick="submitModal('vol','volFormBox','volSuccess','Volunteer application submitted! We\'ll be in touch soon.')">Apply to Volunteer ✈</button>
+    </div>
+    <div class="form-success" id="volSuccess">
+      <div class="form-success-icon">🤝</div>
+      <h3>Application received!</h3>
+      <p>Our volunteer coordinator will reach out within 3 business days to discuss next steps.</p>
+    </div>
+  </div>
+</div>
+<!-- ────────────────── SCRIPTS ────────────────── -->
+<script>
+/* ── HELPERS ── */
+function $(id){ return document.getElementById(id) }
+function setError(id, show){ 
+  var el = document.getElementById(id);
+  el && el.classList[show ? 'add' : 'remove']('error');
+}
+function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) }
+function fmtCard(v){ return v.replace(/\D/g,'').replace(/(.{4})/g,'$1 ').trim() }
+
+/* ── COUNT-UP ── */
+function countUp(el, end, suffix, prefix, decimals, duration) {
+  if (!el) return;
+  var startTime = null;
+  function step(ts) {
+    if (!startTime) startTime = ts;
+    var progress = Math.min((ts - startTime) / duration, 1);
+    var ease = 1 - Math.pow(1 - progress, 3);
+    var val = end * ease;
+    var display = decimals ? val.toFixed(decimals) : Math.floor(val);
+    el.textContent = (prefix || '') + (decimals ? display : Number(display).toLocaleString()) + (suffix || '');
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      el.textContent = (prefix || '') + (decimals ? end.toFixed(decimals) : end.toLocaleString()) + (suffix || '');
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+/* Hero stats — fire immediately when DOM ready (no wait for images) */
+document.addEventListener('DOMContentLoaded', function () {
+  setTimeout(function () {
+    countUp(document.getElementById('hs1'), 3400, '+', '', 0, 2200);
+    countUp(document.getElementById('hs2'), 18,   '',  '', 0, 1800);
+    countUp(document.getElementById('hs3'), 96,   '%', '', 0, 2000);
+    countUp(document.getElementById('hs4'), 15,   '',  '', 0, 1600);
+  }, 300);
+});/* Impact stats — fire when section scrolled into view */
+var impactDone = false;
+var impactObs = new IntersectionObserver(function (entries) {
+  if (entries[0].isIntersecting && !impactDone) {
+    impactDone = true;
+    countUp(document.getElementById('ic1'), 3400, '+', '',  0, 2200);
+    countUp(document.getElementById('ic2'), 96,   '%', '',  0, 2000);
+    countUp(document.getElementById('ic3'), 78,   '%', '',  0, 1900);
+    countUp(document.getElementById('ic4'), 2.1,  'M', '$', 1, 2100);
+    countUp(document.getElementById('ic5'), 240,  '',  '',  0, 1800);
+  }
+}, { threshold: 0.25 });
+var impactSection = document.querySelector('.impact');
+if (impactSection) impactObs.observe(impactSection);
+
+/* ── SCROLL REVEAL ── */
+var revealEls = document.querySelectorAll('.reveal');
+var revObs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){ e.target.classList.add('visible'); revObs.unobserve(e.target); }
+  });
+}, {threshold: 0.1});
+revealEls.forEach(function(el){ revObs.observe(el); });
+
+/* ── NAV ── */
+var navbar = $('navbar');
+window.addEventListener('scroll', function(){
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+  $('backTop').classList.toggle('show', window.scrollY > 400);
+});
+
+var hamburger = $('hamburger'), mobileMenu = $('mobileMenu');
+hamburger.addEventListener('click', function(){
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+document.querySelectorAll('.menu-link').forEach(function(l){
+  l.addEventListener('click', function(){
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+/* ── TOAST ── */
+var toastTimer;
+function showToast(icon, title, msg){
+  var t = $('toast');
+  $('toastIcon').textContent = icon;
+  $('toastTitle').textContent = title;
+  $('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 3500);
+}
+
+/* ── MODALS ── */
+function openModal(name){
+  var el = $('modal-' + name);
+  if(el){ el.classList.add('open'); document.body.style.overflow = 'hidden'; }
+}
+function closeModal(name){
+  var el = $('modal-' + name);
+  if(el){ el.classList.remove('open'); document.body.style.overflow = ''; }
+}
+// Close on overlay click
+document.querySelectorAll('.modal-overlay').forEach(function(ov){
+  ov.addEventListener('click', function(e){ if(e.target === ov){ ov.classList.remove('open'); document.body.style.overflow=''; } });
+});
+// Esc key
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    document.querySelectorAll('.modal-overlay.open').forEach(function(ov){
+      ov.classList.remove('open'); document.body.style.overflow='';
+    });
+  }
+});/* ── CARD FORMATTING ── */
+var cardInput = $('d-card');
+if(cardInput){
+  cardInput.addEventListener('input', function(){
+    var v = this.value.replace(/\D/g,'').substring(0,16);
+    this.value = v.match(/.{1,4}/g)?.join(' ') || v;
+  });
+}
+var expInput = $('d-exp');
+if(expInput){
+  expInput.addEventListener('input', function(){
+    var v = this.value.replace(/\D/g,'');
+    if(v.length >= 2) v = v.substring(0,2) + '/' + v.substring(2,4);
+    this.value = v;
+  });
+}
+
+/* ── DONATE AMOUNTS ── */
+function setAmt(btn, val){
+  document.querySelectorAll('.donate-amt').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  $('d-amt').value = val;
+}
+
+/* ── CONTACT FORM ── */
+function submitContact(){
+  var ok = true;
+  var fn = $('c-fname').value.trim();
+  var ln = $('c-lname').value.trim();
+  var em = $('c-email').value.trim();
+  var it = $('c-intent').value;
+  var mg = $('c-msg').value.trim();
+  setError('ff-fname', !fn);  if(!fn) ok=false;
+  setError('ff-lname', !ln);  if(!ln) ok=false;
+  setError('ff-email', !isEmail(em)); if(!isEmail(em)) ok=false;
+  setError('ff-intent', !it); if(!it) ok=false;
+  setError('ff-msg', mg.length < 20); if(mg.length < 20) ok=false;
+  if(!ok) return;
+  var btn = $('contactSubmit');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  setTimeout(function(){
+    $('contactFormBox').style.display='none';
+    $('contactSuccess').classList.add('show');
+    showToast('✅','Message sent!','We\'ll reply within 2 business days.');
+  }, 1200);
+}
+
+/* ── ENROLL FORM ── */
+function submitEnroll(){
+  var ok = true;
+  var pf = $('e-pfname').value.trim(); setError('ef-pfname',!pf); if(!pf) ok=false;
+  var pl = $('e-plname').value.trim(); setError('ef-plname',!pl); if(!pl) ok=false;
+  var pe = $('e-pemail').value.trim(); setError('ef-pemail',!isEmail(pe)); if(!isEmail(pe)) ok=false;
+  var pp = $('e-pphone').value.trim(); setError('ef-pphone',!pp); if(!pp) ok=false;
+  var cn = $('e-cname').value.trim(); setError('ef-cname',!cn); if(!cn) ok=false;
+  var ca = parseInt($('e-cage').value); var ageOk = ca>=3&&ca<=18; setError('ef-cage',!ageOk); if(!ageOk) ok=false;
+  var pr = $('e-prog').value; setError('ef-prog',!pr); if(!pr) ok=false;
+  if(!ok) return;
+  setTimeout(function(){
+    $('enrollFormBox').style.display='none';
+    $('enrollSuccess').classList.add('show');
+    showToast('🎓','Enrollment submitted!','Our admissions team will contact you soon.');
+  }, 1000);
+}
+/* ── DONATE FORM ── */
+function submitDonate(){
+  var ok = true;
+  var fn = $('d-fname').value.trim(); setError('df-fname',!fn); if(!fn) ok=false;
+  var ln = $('d-lname').value.trim(); setError('df-lname',!ln); if(!ln) ok=false;
+  var em = $('d-email').value.trim(); setError('df-email',!isEmail(em)); if(!isEmail(em)) ok=false;
+  var amt = parseFloat($('d-amt').value); var amtOk = amt>0; setError('df-amt',!amtOk); if(!amtOk) ok=false;
+  var card = $('d-card').value.replace(/\s/g,''); var cardOk = card.length===16; setError('df-card',!cardOk); if(!cardOk) ok=false;
+  var exp = $('d-exp').value; var expOk = /^\d{2}\/\d{2}$/.test(exp); setError('df-exp',!expOk); if(!expOk) ok=false;
+  var cvv = $('d-cvv').value; var cvvOk = /^\d{3,4}$/.test(cvv); setError('df-cvv',!cvvOk); if(!cvvOk) ok=false;
+  if(!ok) return;
+  var btn = $('donateBtn'); btn.disabled=true; btn.textContent='Processing…';
+  setTimeout(function(){
+    $('donateFormBox').style.display='none';
+    $('donateSuccess').classList.add('show');
+    showToast('💛','Donation received!','Thank you for supporting BCF!');
+  }, 1500);
+}
+
+/* ── SCHOLARSHIP ── */
+function submitScholarship(){
+  var ok = true;
+  var pf = $('s-pfname').value.trim(); setError('sf-pfname',!pf); if(!pf) ok=false;
+  var pe = $('s-pemail').value.trim(); setError('sf-pemail',!isEmail(pe)); if(!isEmail(pe)) ok=false;
+  var cn = $('s-cname').value.trim(); setError('sf-cname',!cn); if(!cn) ok=false;
+  var ca = parseInt($('s-cage').value); var ao = ca>=3&&ca<=18; setError('sf-cage',!ao); if(!ao) ok=false;
+  var st = $('s-type').value; setError('sf-type',!st); if(!st) ok=false;
+  var sm = $('s-stmt').value.trim(); var smOk = sm.length>=30;
+  var seEl = $('s-stmt-err'); seEl.style.display = smOk?'none':'block';
+  if(!smOk) ok=false;
+  if(!ok) return;
+  setTimeout(function(){
+    $('schFormBox').style.display='none';
+    $('schSuccess').classList.add('show');
+    showToast('🌟','Application submitted!','Our committee will review within 2–3 weeks.');
+  }, 1000);
+}
+
+/* ── GENERIC MODAL SUBMIT (volunteer, partner) ── */
+function submitModal(prefix, formBox, successId, toastMsg){
+  var ok = true;
+  var fields = document.querySelectorAll('#'+formBox+' .form-field[id]');
+  fields.forEach(function(ff){
+    var inp = ff.querySelector('input,select,textarea');
+    if(!inp) return;
+    var required = ff.id !== '' && !ff.id.includes('avail') && !ff.id.includes('msg');
+    if(required && !inp.value.trim()){ ff.classList.add('error'); ok=false; }
+    else if(inp.type==='email' && inp.value.trim() && !isEmail(inp.value.trim())){ ff.classList.add('error'); ok=false; }
+    else { ff.classList.remove('error'); }
+  });
+  if(!ok) return;
+  setTimeout(function(){
+    document.getElementById(formBox).style.display='none';
+    document.getElementById(successId).classList.add('show');
+    showToast('✅','Submitted!', toastMsg);
+  }, 1000);
+}
+</script>
+</body>
+</html>
