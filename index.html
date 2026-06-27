@@ -790,11 +790,11 @@ function setAmt(btn, val){
 /* ── CONTACT FORM ── */
 function submitContact(){
   var ok = true;
-  var fn = $('c-fname').value.trim();
-  var ln = $('c-lname').value.trim();
-  var em = $('c-email').value.trim();
-  var it = $('c-intent').value;
-  var mg = $('c-msg').value.trim();
+  var fn = ('c-fname').value.trim();
+  var ln = ('c-lname').value.trim();
+  var em = ('c-email').value.trim();
+  var it = ('c-intent').value;
+  var mg = ('c-msg').value.trim();
   setError('ff-fname', !fn);  if(!fn) ok=false;
   setError('ff-lname', !ln);  if(!ln) ok=false;
   setError('ff-email', !isEmail(em)); if(!isEmail(em)) ok=false;
@@ -813,17 +813,17 @@ function submitContact(){
 /* ── ENROLL FORM ── */
 function submitEnroll(){
   var ok = true;
-  var pf = $('e-pfname').value.trim(); setError('ef-pfname',!pf); if(!pf) ok=false;
-  var pl = $('e-plname').value.trim(); setError('ef-plname',!pl); if(!pl) ok=false;
-  var pe = $('e-pemail').value.trim(); setError('ef-pemail',!isEmail(pe)); if(!isEmail(pe)) ok=false;
-  var pp = $('e-pphone').value.trim(); setError('ef-pphone',!pp); if(!pp) ok=false;
-  var cn = $('e-cname').value.trim(); setError('ef-cname',!cn); if(!cn) ok=false;
-  var ca = parseInt($('e-cage').value); var ageOk = ca>=3&&ca<=18; setError('ef-cage',!ageOk); if(!ageOk) ok=false;
-  var pr = $('e-prog').value; setError('ef-prog',!pr); if(!pr) ok=false;
+  var pf = ('e-pfname').value.trim(); setError('ef-pfname',!pf); if(!pf) ok=false;
+  var pl = ('e-plname').value.trim(); setError('ef-plname',!pl); if(!pl) ok=false;
+  var pe = ('e-pemail').value.trim(); setError('ef-pemail',!isEmail(pe)); if(!isEmail(pe)) ok=false;
+  var pp = ('e-pphone').value.trim(); setError('ef-pphone',!pp); if(!pp) ok=false;
+  var cn = ('e-cname').value.trim(); setError('ef-cname',!cn); if(!cn) ok=false;
+  var ca = parseInt(('e-cage').value); var ageOk = ca>=3&&ca<=18; setError('ef-cage',!ageOk); if(!ageOk) ok=false;
+  var pr = ('e-prog').value; setError('ef-prog',!pr); if(!pr) ok=false;
   if(!ok) return;
   setTimeout(function(){
-    $('enrollFormBox').style.display='none';
-    $('enrollSuccess').classList.add('show');
+    ('enrollFormBox').style.display='none';
+    ('enrollSuccess').classList.add('show');
     showToast('🎓','Enrollment submitted!','Our admissions team will contact you soon.');
   }, 1000);
 }
@@ -884,6 +884,13 @@ function submitModal(prefix, formBox, successId, toastMsg){
     showToast('✅','Submitted!', toastMsg);
   }, 1000);
 }
-</script>
+</script><div id="enrollFormBox" style="display:block; padding:20px;">
+  <form onsubmit="event.preventDefault(); submitEnroll();">
+    <input id="e-pfname" placeholder="Patient First Name" required><br><br>
+    <input id="e-plname" placeholder="Patient Last Name" required><br><br>
+    <input id="e-email" placeholder="Email" type="email" required><br><br>
+    <button type="submit">Enroll</button>
+  </form>
+</div>
 </body>
 </html>
