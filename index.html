@@ -584,11 +584,11 @@
       </div>   <div class="form-field" id="df-email"><label>Email *</label><input type="email" id="d-email" placeholder="jane@example.com"/><div class="field-err">Valid email required.</div></div>
       <div class="form-field"><label>Donation Amount (USD) *</label>
         <div class="donate-amounts">
-          <button class="donate-amt" onclick="setAmt(this,'25')">$25</button>
-          <button class="donate-amt" onclick="setAmt(this,'50')">$50</button>
-          <button class="donate-amt active" onclick="setAmt(this,'100')">$100</button>
-          <button class="donate-amt" onclick="setAmt(this,'250')">$250</button>
-          <button class="donate-amt" onclick="setAmt(this,'500')">$500</button>
+          <button class="donate-amt" onclick="setAmt(this,'25')">250</button>
+          <button class="donate-amt" onclick="setAmt(this,'50')">500</button>
+          <button class="donate-amt active" onclick="setAmt(this,'100')">1000</button>
+          <button class="donate-amt" onclick="setAmt(this,'250')">2500</button>
+          <button class="donate-amt" onclick="setAmt(this,'500')">5000</button>
         </div>
         <div class="form-field" id="df-amt" style="margin-bottom:0"><input type="number" id="d-amt" value="100" placeholder="Or enter custom amount" min="1"/><div class="field-err">Enter a valid amount.</div></div>
       </div>
@@ -651,7 +651,7 @@
 <!-- ────────────────── SCRIPTS ────────────────── -->
 <script>
 /* ── HELPERS ── */
-function $(id){ return document.getElementById(id) }
+function (id){ return document.getElementById(id) }
 function setError(id, show){ 
   var el = document.getElementById(id);
   el && el.classList[show ? 'add' : 'remove']('error');
@@ -712,10 +712,10 @@ var revObs = new IntersectionObserver(function(entries){
 revealEls.forEach(function(el){ revObs.observe(el); });
 
 /* ── NAV ── */
-var navbar = $('navbar');
+var navbar = ('navbar');
 window.addEventListener('scroll', function(){
   navbar.classList.toggle('scrolled', window.scrollY > 20);
-  $('backTop').classList.toggle('show', window.scrollY > 400);
+  ('backTop').classList.toggle('show', window.scrollY > 400);
 });
 
 var hamburger = $('hamburger'), mobileMenu = $('mobileMenu');
@@ -882,10 +882,10 @@ function submitModal(prefix, formBox, successId, toastMsg){
     showToast('✅','Submitted!', toastMsg);
   }, 1000);
 }
-</script><div id="enrollFormBox" style="display:block; padding:20px;">
+
   <form onsubmit="event.preventDefault(); submitEnroll();">
-    <input id="e-pfname" placeholder="Patient First Name" required><br><br>
-    <input id="e-plname" placeholder="Patient Last Name" required><br><br>
+    <input id="e-pfname" placeholder="student First Name" required><br><br>
+    <input id="e-plname" placeholder="student Last Name" required><br><br>
     <input id="e-email" placeholder="Email" type="email" required><br><br>
     <button type="submit">Enroll</button>
   </form>
